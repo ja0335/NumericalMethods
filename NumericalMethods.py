@@ -1,5 +1,12 @@
 import numpy as np;
 
+# A well conditioned nxn matrix is a representation of an nxn space so 
+# the n vectors must not to be paralell between them in any combination.
+# This algorithm just measures the degree of paralellism between the set
+# of vectors in a range [0, 1]. If all the vector are orthogonal then 
+# the result is 0 if there is a paralellism the result is 1.
+# Values near or equal to 0 tells us the matrix is well conditioned but 
+# values near or equal to 1 tells us about an ill conditioned matrix
 def MatrixCondition(A):
 
     Sum = np.zeros(A.shape[0] - 1)
