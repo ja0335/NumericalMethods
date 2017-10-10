@@ -18,8 +18,6 @@ def MatrixCondition(A):
         if l1 == 0.0:
             return 1
 
-        Norm1 = A[i] / l1
-
         PartialSum = 0
         
         for j in xrange(i+1, A.shape[0]):
@@ -29,11 +27,11 @@ def MatrixCondition(A):
             if l2 == 0.0:
                 return 1
 
-            Norm2 = A[j] / l2
+            Cos =  np.abs( (A[i].dot(A[j]))/(l1*l2) )
 
-            PartialSum += Norm1.dot(Norm2)
+            PartialSum += Cos
 
-        Sum[i]  = np.abs(PartialSum / j)
+        Sum[i]  = PartialSum / j
 
     return np.sum(Sum) / Sum.shape
 
@@ -88,17 +86,17 @@ def GaussElimination(A, b):
 # A = np.array([
 #     [ 4.0, -2.0,  1.0],
 #     [-2.0,  4.0, -2.0],
-#     [ 1.0, -2.0,  4.0]]);
+#     [ 1.0, -2.0,  4.0]])
 
 # A = np.array([
 #     [ 0.143,  0.357,  2.010],
 #     [-1.310,  0.911,  1.990],
-#     [ 11.20, -4.300, -0.605]]);
+#     [ 0, -4.300, 0.605]])
 
 # A = np.array([
 #     [ 0.143,  0.357,  2.010],
 #     [-1.310,  0.911,  1.990],
-#     [ 11.20, -4.300, -0.605]]);
+#     [ 11.20, -4.300, -0.605]])
 
 # A = np.array([
 #     [2,3,-7],
@@ -106,13 +104,19 @@ def GaussElimination(A, b):
 #     [7,-3,6]
 # ])
 
+# A = np.array([
+#     [400, -201],
+#     [-800, 401]
+# ])
+
 A = np.array([
-    [400, -201],
-    [-800, 401]
+    [1,0,0],
+    [0,1,0],
+    [0,1,1]
 ])
 
-print MatrixCondition(A);
-
+print MatrixCondition(A)
+print np.linalg.cond(A)
 #b = np.array([-5.173, -5.458, 4.415]);
 #A = GaussElimination(A, b);
 
